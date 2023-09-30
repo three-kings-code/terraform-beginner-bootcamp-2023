@@ -145,4 +145,4 @@ gp env HELLO='world'
 
 All future workspaces launched will set the env vars for all the bash terminals openend in them workspaces.
 
-YOu can also set env vars in the `.gitpod.yml` but his can only contain non-senstive env vars.
+You can also set env vars in the `.gitpod.yml` but his can only contain non-senstive env vars.
