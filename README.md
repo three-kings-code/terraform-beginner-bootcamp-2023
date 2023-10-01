@@ -146,3 +146,75 @@ gp env HELLO='world'
 All future workspaces launched will set the env vars for all the bash terminals openend in them workspaces.
 
 You can also set env vars in the `.gitpod.yml` but his can only contain non-senstive env vars.
+
+### AWS CLI Installation
+
+AWS CLI is installed for this project via the bash script [`./bin/install_aws_cli`](./bin/install_aws_cli)
+
+[Getting Started Install (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/gettign-started-install.html)
+[AWS CLI Env Vars](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+
+
+We can check if our AWS credentials are configured correctly by running the following AWS CLI command:
+```sh
+aws sts get-caller-identity
+```
+
+If it is succesful you should see a json payload return that looks like this:
+
+```json
+{
+    "UserId": "AIDSZKGDDUERBARBCBFHI",
+    "Account": "123456789012",
+    "Arn": "arn:aws:iam::123456789012:user/username"
+}
+```
+
+We'll need to gererate AWS CLI credentials form the IAM User in order to use the AWS CLI.
+
+### Steps to create AWS IAM Account with CLI access
+
+To create an IAM follow the below steps
+
+1. Sign in to the AWS Management Console: Log in to your AWS account using your credentials.
+
+2. Navigate to the IAM Console:
+
+ - From the AWS Management Console, click on "Services" and then select "IAM" under the "Security, Identity, & Compliance" section.
+
+3. Create a New IAM User:
+
+ - In the IAM dashboard, click on "Users" in the left navigation pane.
+ - Click on the "Add user" button.
+
+4. Set User Details:
+
+ - Enter a username for your new IAM user.
+ - Choose the access type. For CLI access, select "Programmatic access."
+ - Click "Next: Permissions" to proceed.
+
+5. Attach Permissions:
+
+ - In the "Set permissions" step, select "Add user to group."
+ - If you want to provide administrator permissions, you can add the user to the existing "AdministratorAccess" group. Alternatively, you can create a new group with admin permissions if one doesn't exist.
+ - Click "Next: Tags" to proceed (you can optionally add tags).
+
+6. Add Tags (Optional):
+
+ - You can add tags to the user for better organization, but it's not mandatory. Click "Next: Review" when you're ready.
+
+7. Review User Details:
+
+ - Review the user's details, including their username, access type, and permissions.
+ - If everything looks correct, click "Create user."
+
+8. Access Key and Secret Key:
+
+ - After the user is created, you'll see a confirmation page. Make sure to download the user's access key and secret key. These keys are required for CLI access and should be kept secure.
+
+Now, you've successfully created an IAM user with CLI access and administrator permissions.
+
+[Creating an IAM User in the IAM Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)
+[AWS CLI Configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+
+Always be cautious with administrator-level permissions, as they grant full control over your AWS resources. Make sure to follow best practices for IAM security and restrict permissions whenever possible to the principle of least privilege.

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+cd $PROJECT_ROOT/..
+
+echo 'Deleting old files'
+rm '/workspace/awscliv2.zip'
+rm -r '/workspace/aws'
+
+echo 'Getting latest AWS CLI'
+curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+echo 'Preparing latest AWS CLI'
+unzip -q awscliv2.zip
+
+echo 'Installing latest AWS CLI'
+sudo ./aws/install 2> /dev/null
+
+echo 'Confirming Current Identity connected to AWS'
+aws sts get-caller-identity
+
+cd $PROJECT_ROOT
