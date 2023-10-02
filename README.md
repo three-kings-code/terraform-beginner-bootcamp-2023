@@ -79,7 +79,7 @@ eg. `source ./bin/install_terraform_cli`
 
 #### Linux Permissions Considerations
 
-In order to make our bash scripts executateable we need to change the linux premission for the fix to be executable at the user mode.
+In order to make our bash scripts executable we need to change the linux permission for the fix to be executable at the user mode.
 
 ```sh
 chmod u+x ./bin/install_terraform_cli
@@ -103,7 +103,7 @@ We can list out all environment variables  (Env Vars) using the `env` command
 
 We can filter specific env vars using grep eg. `env | grep AWS_`
 
-#### Setting and Unsetting Env Vars
+#### Setting and Upsetting Env Vars
 
 In the terminal wer can set using `export HELLO='world'`
 
@@ -115,7 +115,7 @@ We can set and set an env var temporarily when just running a command
 HELLO='world' ./bin/print_message
 ```
 
-Within a bash scritp we cna set a env without writign export eg.
+Within a bash script we cna set a env without writing export eg.
 
 ```sh
 #!/usr/bin/env bash
@@ -131,21 +131,21 @@ We can print an env var using echo. `echo $HELLO`
 
 #### Scoping of Env Vars
 
-When yuou open up new bash terminals in VSCode it will not be aware of the env vars that you ahve set in another window.
+When you open up new bash terminals in VSCode it will not be aware of the env vars that you have set in another window.
 
-If you want to Env Vars to persist across all the future bash termainals that are open you need to set env vars in your bash profile. eb. `.bash_profile`
+If you want to Env Vars to persist across all the future bash terminals that are open you need to set env vars in your bash profile. eb. `.bash_profile`
 
 #### Persisting Env Vars in Gitpod
 
-We can persist env vars into the gitpod by storeing them in the Gitpod Secrets Storage.
+We can persist env vars into the gitpod by storing them in the Gitpod Secrets Storage.
 
 ```
 gp env HELLO='world'
 ```
 
-All future workspaces launched will set the env vars for all the bash terminals openend in them workspaces.
+All future workspaces launched will set the env vars for all the bash terminals opened in them workspaces.
 
-You can also set env vars in the `.gitpod.yml` but his can only contain non-senstive env vars.
+You can also set env vars in the `.gitpod.yml` but his can only contain non-sensitive env vars.
 
 ### AWS CLI Installation
 
@@ -160,7 +160,7 @@ We can check if our AWS credentials are configured correctly by running the foll
 aws sts get-caller-identity
 ```
 
-If it is succesful you should see a json payload return that looks like this:
+If it is successful you should see a json payload return that looks like this:
 
 ```json
 {
@@ -170,7 +170,7 @@ If it is succesful you should see a json payload return that looks like this:
 }
 ```
 
-We'll need to gererate AWS CLI credentials form the IAM User in order to use the AWS CLI.
+We'll need to generate AWS CLI credentials form the IAM User in order to use the AWS CLI.
 
 ### Steps to create AWS IAM Account with CLI access
 
@@ -218,3 +218,59 @@ Now, you've successfully created an IAM user with CLI access and administrator p
 [AWS CLI Configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 
 Always be cautious with administrator-level permissions, as they grant full control over your AWS resources. Make sure to follow best practices for IAM security and restrict permissions whenever possible to the principle of least privilege.
+
+# Terraform Basics
+
+### Terraform Registry
+
+Terraform sources their providers and modules from teh Terraform registry which is located at [registry.terraform.io](https://registry.terraform.io)
+
+- **Providers** is an interface to APIs that will allow you to create resources with terraform.
+- **Modules** are a way to make large amounts of terraform code modular, portable and shareable.
+
+[Random terraform provider](https://registry.terraform.io/providers/hashicorp/random/latest)
+
+### Terraform Console
+
+We can see a list of all the Terraform commands by simply typing `terraform`
+
+#### Terraform Init
+
+
+At the start of a new terraform project we weill run `terraform init` to download the binaries for the terraform providers that we'll use in this project
+
+#### Terraform Plan
+
+`terraform plan`
+This will generate out a changeset, about the state of our infrastructure ans what will be changed.
+
+We can output this changeset ie. "plan" to be passed to an apply, but ofter you can just ignore outputting.
+
+#### Terraform Apply
+
+`terraform apply`
+This will run a plan and pass the changeset to be executed by terraform. Apply should prompt us yes or no
+
+If we want to automatically approve an apply we can proved the auto approve flag `terraform apply --auto-approve`
+
+### Terraform Lock Files
+
+`.terraform.local.hcl` contains the locked versioning for the providers or modules that should be used with this project.
+
+The Terraform LOck DIle should be committed to your Version Control System (VSC) eg. Github
+
+### Terraform State FIles
+
+`.terraform.tfstate` contain information about the current state of your infrastructure.
+
+This file **should not be committed** to your VCS.
+
+This file can contain sensitive data.
+
+If you lose this file, you lose knowing the state of your infrastructure.
+
+`.terraform.tfstate.backup` is the previous state file state.
+
+### Terraform Directory
+
+`.terraform` directory contains the binaries of the terraform providers.
