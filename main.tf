@@ -1,4 +1,10 @@
 terraform {
+cloud {
+    organization = "three-kings"
+    workspaces {
+      name = "terra-house-three-kings"
+    }
+  }
   required_providers {
     random = {
       source = "hashicorp/random"
@@ -33,4 +39,8 @@ resource "aws_s3_bucket" "example" {
   # Bucket Naming Rules
   # https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html?icmpid=docs_amazons3_console
   bucket = random_string.bucket_name.result
+}
+
+output "random_bucket_name" {
+  value = random_string.bucket_name.result
 }
