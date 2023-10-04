@@ -6,7 +6,7 @@
 
 - PROJECT_ROOT
   - variables.tf - <span style="background-color: #D3D3D3">stores the structure of input variables</span>
-  - main.tf - everthing else
+  - main.tf - <mark>everthing else</mark>
   - providers.tf - definerequired providers and their configuration
   - outputs.tf - stores our outputs
   - terraform.tfvars - the data of variables we want to laod into our terraform project
