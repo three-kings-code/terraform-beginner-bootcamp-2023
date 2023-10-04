@@ -2,33 +2,33 @@
 
 ## Table of Contents
 
-  * [Semantic Versioning](#semantic-versioning)
-  * [Install the Terraform CLI](#install-the-terraform-cli)
-    + [Considerations with the Terraform CLI changes](#considerations-with-the-terraform-cli-changes)
-    + [Considerations for Linux Distribution](#considerations-for-linux-distribution)
-    + [Refactoring into the Bash Scripts](#refactoring-into-the-bash-scripts)
-      - [Shebang](#shebang)
-      - [Executions Considerations](#executions-considerations)
-      - [Linux Permissions Considerations](#linux-permissions-considerations)
-    + [Gitpod Lifecycle - Before, Init, Command](#gitpod-lifecycle---before--init--command)
-    + [Working with Env Vars](#working-with-env-vars)
-      - [Setting and Upsetting Env Vars](#setting-and-upsetting-env-vars)
-      - [Printing Vars](#printing-vars)
-      - [Scoping of Env Vars](#scoping-of-env-vars)
-      - [Persisting Env Vars in Gitpod](#persisting-env-vars-in-gitpod)
-    + [AWS CLI Installation](#aws-cli-installation)
-    + [Steps to create AWS IAM Account with CLI access](#steps-to-create-aws-iam-account-with-cli-access)
+- [Semantic Versioning](#semantic-versioning)
+- [Install the Terraform CLI](#install-the-terraform-cli)
+  * [Considerations with the Terraform CLI changes](#considerations-with-the-terraform-cli-changes)
+  * [Considerations for Linux Distribution](#considerations-for-linux-distribution)
+  * [Refactoring into the Bash Scripts](#refactoring-into-the-bash-scripts)
+    + [Shebang](#shebang)
+    + [Executions Considerations](#executions-considerations)
+    + [Linux Permissions Considerations](#linux-permissions-considerations)
+- [Gitpod Lifecycle](#gitpod-lifecycle)
+- [Working with Env Vars](#working-with-env-vars)
+  * [Setting and Upsetting Env Vars](#setting-and-upsetting-env-vars)
+  * [Printing Vars](#printing-vars)
+  * [Scoping of Env Vars](#scoping-of-env-vars)
+  * [Persisting Env Vars in Gitpod](#persisting-env-vars-in-gitpod)
+- [AWS CLI Installation](#aws-cli-installation)
+  * [Steps to create AWS IAM Account with CLI access](#steps-to-create-aws-iam-account-with-cli-access)
 - [Terraform Basics](#terraform-basics)
-    + [Terraform Registry](#terraform-registry)
-    + [Terraform Console](#terraform-console)
-      - [Terraform Init](#terraform-init)
-      - [Terraform Plan](#terraform-plan)
-      - [Terraform Apply](#terraform-apply)
-      - [Terraform Destroy](#terraform-destroy)
-    + [Terraform Lock Files](#terraform-lock-files)
-    + [Terraform State Files](#terraform-state-files)
-    + [Terraform Directory](#terraform-directory)
-  * [Issues with Terraform Cloud Login and Gitpod Workspace](#issues-with-terraform-cloud-login-and-gitpod-workspace)
+  * [Terraform Registry](#terraform-registry)
+  * [Terraform Console](#terraform-console)
+    + [Terraform Init](#terraform-init)
+    + [Terraform Plan](#terraform-plan)
+    + [Terraform Apply](#terraform-apply)
+    + [Terraform Destroy](#terraform-destroy)
+  * [Terraform Lock Files](#terraform-lock-files)
+  * [Terraform State Files](#terraform-state-files)
+  * [Terraform Directory](#terraform-directory)
+- [Issues with Terraform Cloud Login and Gitpod Workspace](#issues-with-terraform-cloud-login-and-gitpod-workspace)
 
 ## Semantic Versioning
 
@@ -121,19 +121,19 @@ alternatively
 chmod 744 ./bin/install_terraform_cli
 ```
 
-### Gitpod Lifecycle - Before, Init, Command
+## Gitpod Lifecycle
 
 We need to be careful when using the Init because it will not rerun if we restart an existing workspace
 
 https://www.gotpod.io/doc/configure/workspaces/tasks
 
-### Working with Env Vars
+## Working with Env Vars
 
 We can list out all environment variables  (Env Vars) using the `env` command
 
 We can filter specific env vars using grep eg. `env | grep AWS_`
 
-#### Setting and Upsetting Env Vars
+### Setting and Upsetting Env Vars
 
 In the terminal wer can set using `export HELLO='world'`
 
@@ -155,17 +155,17 @@ HELLO='world'
 echo $HELLO
 ```
 
-#### Printing Vars
+### Printing Vars
 
 We can print an env var using echo. `echo $HELLO`
 
-#### Scoping of Env Vars
+### Scoping of Env Vars
 
 When you open up new bash terminals in VSCode it will not be aware of the env vars that you have set in another window.
 
 If you want to Env Vars to persist across all the future bash terminals that are open you need to set env vars in your bash profile. eb. `.bash_profile`
 
-#### Persisting Env Vars in Gitpod
+### Persisting Env Vars in Gitpod
 
 We can persist env vars into the gitpod by storing them in the Gitpod Secrets Storage.
 
@@ -177,7 +177,7 @@ All future workspaces launched will set the env vars for all the bash terminals 
 
 You can also set env vars in the `.gitpod.yml` but his can only contain non-sensitive env vars.
 
-### AWS CLI Installation
+## AWS CLI Installation
 
 AWS CLI is installed for this project via the bash script [`./bin/install_aws_cli`](./bin/install_aws_cli)
 
@@ -249,7 +249,7 @@ Now, you've successfully created an IAM user with CLI access and administrator p
 
 Always be cautious with administrator-level permissions, as they grant full control over your AWS resources. Make sure to follow best practices for IAM security and restrict permissions whenever possible to the principle of least privilege.
 
-# Terraform Basics
+## Terraform Basics
 
 ### Terraform Registry
 
