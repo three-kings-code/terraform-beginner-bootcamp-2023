@@ -1,3 +1,3 @@
 output "bucket_name_output" {
-  value = aws_s3_bucket.website_bucket.bucket
+  value = module.terrahouse_aws.bucket_name_output
 }
