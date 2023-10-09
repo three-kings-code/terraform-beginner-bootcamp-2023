@@ -93,3 +93,23 @@ variable "example_variable2" {
 3. **Variable Files**: You can use variable files (e.g., -var-file=variables.tfvars) to provide variable values. Variable files can override both default values and environment variables.
 
 4. **Explicit Variable Assignments**: Variables can also be explicitly assigned values within your Terraform configuration using the var function. Explicit assignments take precedence over all other methods.
+
+## Dealing with Configuration Drift
+
+### What happens if we lose our state file?
+
+If you lose your state file, you will most likely have to tear down all your cloud infrastructure manually.
+
+You can use terraform import but it wont't work for all cloud resources. You need to check the terraform providers documentation for which resources support import
+### Fix missing Resources with Terraform Import
+
+`terraform import aws_s3_bucket.my_bucket my-existing-bucket`
+
+[Terraform Import](https://developer.hasicorp.com/terraform/cli/import)
+[AWS S3 Bucket Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import)
+
+### Fix Manual Configuration
+
+If someone goes and deletes or modifies cloud resources manually through ClickOps.
+
+If we run terraform plan it will attempt to put our infrastructure back into the expected state fixing Configuration Drift
