@@ -1,0 +1,26 @@
+terraform {
+# cloud {
+#     organization = "three-kings"
+#     workspaces {
+#       name = "terra-house-three-kings"
+#     }
+#   }
+  required_providers {
+    random = {
+      source = "hashicorp/random"
+      version = "3.5.1"
+    }
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.19.0"
+    }
+  }
+}
+
+provider "random" {
+  # Configuration options
+}
+
+provider "aws" {
+  # Configuration options
+}
