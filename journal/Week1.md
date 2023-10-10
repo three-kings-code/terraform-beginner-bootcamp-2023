@@ -146,7 +146,7 @@ terraform apply -refresh-only -auto-approve
 
 ### Terraform Module Structure
 
-it is recommended to place moduls in a `modules` directory when locally developing modules but you can name it whatever you like.
+it is recommended to place modules in a `modules` directory when locally developing modules but you can name it whatever you like.
 
 ### Passing Input Variables
 
@@ -186,7 +186,7 @@ It may likely produce older examples that could be deprecated. This often affect
 
 ### Fileexists function
 
-This is a built in terraform function to check the existance of files.
+This is a built in terraform function to check the existence of files.
 
 ```hcl
 condition = fileexists(var.error_html_filepath)
@@ -236,9 +236,9 @@ locals {
 
 ## Terraform Data Sources
 
-This alloows us to source data from cloud resources
+This allows us to source data from cloud resources
 
-This is useful when we what to refernce cloud resources without importing them.
+This is useful when we what to reference cloud resources without importing them.
 
 ```hcl
 data "aws_caller_identity" "current" {}
@@ -271,3 +271,52 @@ jsonencode({"hello"="world"})
 Plain data values such as Local Values and Input Variables don't have any side-effects to plan against and so they aren't valid in `replace_triggered_by`. You can use `terraform_data`'s behavior of planning an action each time input changes to indirectly use a plain value to trigger replacement.
 
 [Terraform Data](https://developer.hashicorp.com/terraform/language/resources/terraform-data)
+
+## Provisioners
+Provisioners allow you to execute commands on compute instances eg. a AWS CLI command.
+
+They are not recommended for use by Hashicorp because Configuration Management tools such as Ansible are a better fit, but the functionality exists.
+
+[Provisioners](https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax)
+
+### Local-exec
+
+This will execute a command in the machine running the terraform commands eg. plan apply
+
+```hcl
+resource "aws_instance" "web" {
+  # ...
+
+  provisioner "local-exec" {
+    command = "echo The server's IP address is ${self.private_ip}"
+  }
+}
+```
+[local-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec)
+
+### Remote-exec
+
+This will execute commands on a machine which you target. You will need to provide credentials such as ssh to get into the machine.
+
+```hcl
+resource "aws_instance" "web" {
+  # ...
+
+  # Establishes connection to be used by all
+  # generic remote provisioners (i.e. file/remote-exec)
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.root_password
+    host     = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "puppet apply",
+      "consul join ${aws_instance.web.private_ip}",
+    ]
+  }
+}
+```
+[remote-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
