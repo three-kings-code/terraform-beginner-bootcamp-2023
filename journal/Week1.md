@@ -151,3 +151,51 @@ module "terrahouse_aws" {
 ```
 
 [Module Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
+
+## Considerations when using ChatGPT to write Terraform
+
+LLMs such as ChatGPT may not be trained on the latest documentation or information about Terraform.
+
+It may likely produce older examples that could be deprecated. This often affects the providers.
+
+## Working with files in Terraform
+
+### Fileexists function
+
+This is a built in terraform function to check the existance of files.
+
+```hcl
+condition = fileexists(var.error_html_filepath)
+```
+
+[fileexists](https://developer.hashicorp.com/terraform/language/functions/fileexists)
+
+### filemd5 function
+
+filemd5 is a variant of md5 that hashes the contents of a given file rather than a literal string.
+
+This is similar to `md5(file(filename))`, but because file accepts only UTF-8 text it cannot be used to create hashes for binary files.
+
+```hcl
+etag = filemd5(var.index_html_filepath)
+```
+
+[filemd5](https://developer.hashicorp.com/terraform/language/functions/filemd5)
+
+
+
+### Path Variables
+In terraform there is a special variable called `path` that allows us to reference local paths:
+- path.module = get the path for the current module
+- path.root = get the path for the root module
+
+[Special Path Variable](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration)
+
+```hcl
+resource "aws_s3_object" "website_index" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "index.html"
+  source = "${path.root}/public.html"
+}
+```
+
