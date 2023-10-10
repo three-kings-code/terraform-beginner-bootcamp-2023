@@ -37,3 +37,13 @@ variable "error_html_filepath" {
     error_message = "The specified error_html_filepath does not exist."
   }
 }
+
+variable "content_version" {
+  type        = number
+  description = "Content version (positive integer starting at 1)"
+
+  validation {
+    condition     = var.content_version > 0 && floor(var.content_version) == var.content_version
+    error_message = "Content version must be a positive integer starting at 1."
+  }
+}
