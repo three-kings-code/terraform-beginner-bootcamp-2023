@@ -2,6 +2,30 @@
 
 ## Table of Contents
 
+
+## Fixing Tags
+
+[How to fix local and remote Git tags](https://devconnected.com/how-to-delete-local-and-remote-tags-on-git/)
+
+#### Locally delete a tag
+```sh
+git tag -d tag_name
+```
+
+#### Remotely delete a tag
+```sh
+git push --delete origin tag_name
+```
+
+#### Checkout the commit that you want ot retag. 
+Get the SHA from your github history
+```sh
+git checkout <SHA>
+git tag M.M.P
+git push --tags
+git checkout main
+```
+
 ## Root Module Structure
 
 Our root module is as follows:
