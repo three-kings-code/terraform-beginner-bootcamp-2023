@@ -34,22 +34,25 @@ resource "aws_s3_object" "website_index" {
   }
 }
 
+resource "aws_s3_object" "upload_assets" {
+  for_each = fileset(var.assets_path, "*.{jpg,png,gif}")
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "assets/${each.key}"
+  source = "${var.assets_path}${each.key}"
+  #content_type = "text/html"
+  etag = filemd5("${var.assets_path}${each.key}")
+}
+
 resource "aws_s3_object" "website_error" {
   bucket = aws_s3_bucket.website_bucket.bucket
   key    = "error.html"
   source = var.error_html_filepath
   content_type = "text/html"
   etag = filemd5(var.error_html_filepath)
-
-  # lifecycle {
-  #   ignore_changes = [etag]
-  # }
 }
 
 resource "aws_s3_bucket_policy" "website_bucket_policy" {
   bucket = aws_s3_bucket.website_bucket.bucket
-  #policy = data.aws_iam_policy_document.allow_access_from_another_account.json
-  #bucket = aws_s3_bucket.website_bucket.arn
   policy = jsonencode({
     "Version" = "2012-10-17",
     "Statement" = [
