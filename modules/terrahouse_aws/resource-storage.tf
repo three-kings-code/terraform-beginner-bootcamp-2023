@@ -41,9 +41,9 @@ resource "aws_s3_object" "website_error" {
   content_type = "text/html"
   etag = filemd5(var.error_html_filepath)
 
-  lifecycle {
-    ignore_changes = [etag]
-  }
+  # lifecycle {
+  #   ignore_changes = [etag]
+  # }
 }
 
 resource "aws_s3_bucket_policy" "website_bucket_policy" {
