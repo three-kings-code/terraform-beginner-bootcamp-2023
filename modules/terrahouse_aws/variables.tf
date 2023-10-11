@@ -51,5 +51,4 @@ variable "content_version" {
 variable "assets_path" {
   type = string
   description = "Path to the 'assets' folder"
-  default     = "${path.root}/public/assets/"
 }
