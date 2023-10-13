@@ -38,6 +38,11 @@ variable "error_html_filepath" {
   }
 }
 
+variable "htmls_filepath" {
+  type        = string
+  description = "Filepath to the html files"
+}
+
 variable "content_version" {
   type        = number
   description = "Content version (positive integer starting at 1)"

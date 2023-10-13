@@ -1,6 +1,7 @@
-user_uuid = "9cfc4d80-2917-4323-bcaa-aa160bcc6c99"
+terratowns_endpoint = "https://terratowns.cloud/api"
 bucket_name = "three-kings-website-bucket"
 index_html_filepath = "/workspace/terraform-beginner-bootcamp-2023/public/index.html"
 error_html_filepath = "/workspace/terraform-beginner-bootcamp-2023/public/error.html"
+htmls_filepath = "/workspace/terraform-beginner-bootcamp-2023/public/"
 assets_path = "/workspace/terraform-beginner-bootcamp-2023/public/assets/"
 content_version = 1
