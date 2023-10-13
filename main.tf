@@ -40,9 +40,8 @@ module "home_dizzy" {
 resource "terratowns_home" "dizzy" {
   name = "Dizzy the Egg Fan Site"
   domain_name = module.home_dizzy.cloudfront_url
-  #domain_name = "34asda32.cloudfront.net"
   description = "This site is a fan site which talks about the game where the main character is Dizzy"# and he has friends that help him along the way"
-  town = "missingo"
+  town = "gamers-grotto"
   content_version = var.dizzy.content_version
 }
 
@@ -58,8 +57,7 @@ module "home_recipes" {
 resource "terratowns_home" "recipes" {
   name = "Sticky Toffee Pudding Recipe"
   domain_name = module.home_recipes.cloudfront_url
-  #domain_name = "34asda32.cloudfront.net"
   description = "I love Sticky toffee pudding and here is a recipe for making one"
-  town = "missingo"
+  town = "cooker-cove"
   content_version = var.recipes.content_version
 }

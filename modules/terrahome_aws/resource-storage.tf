@@ -57,14 +57,6 @@ resource "aws_s3_object" "upload_assets" {
   etag = filemd5("${var.website_root_filepath}${var.project_folder}/assets/${each.key}")
 }
 
-# resource "aws_s3_object" "website_error" {
-#   bucket = aws_s3_bucket.website_bucket.bucket
-#   key    = "error.html"
-#   source = var.error_html_filepath
-#   content_type = "text/html"
-#   etag = filemd5(var.error_html_filepath)
-# }
-
 resource "aws_s3_bucket_policy" "website_bucket_policy" {
   bucket = aws_s3_bucket.website_bucket.bucket
   policy = jsonencode({
