@@ -1,10 +1,10 @@
 terraform {
-# cloud {
-#     organization = "three-kings"
-#     workspaces {
-#       name = "terra-house-three-kings"
-#     }
-#   }
+cloud {
+    organization = "three-kings"
+    workspaces {
+      name = "terra-home-three-kings"
+    }
+  }
   required_providers {
     terratowns = {
       source = "local.providers/local/terratowns"
@@ -28,22 +28,38 @@ provider "terratowns" {
 # }
 
 
-module "terrahouse_aws" {
-    source = "./modules/terrahouse_aws"
+module "home_dizzy" {
+    source = "./modules/terrahome_aws"
     user_uuid = var.teacherseat_user_uuid
-    bucket_name = var.bucket_name
-    # index_html_filepath = var.index_html_filepath
-    # error_html_filepath = var.error_html_filepath
-    content_version = var.content_version
-    assets_path = var.assets_path
+    bucket_name = "${var.dizzy.project_folder}-three-kings"
+    content_version = var.dizzy.content_version
+    project_folder = var.dizzy.project_folder
     website_root_filepath = var.website_root_filepath
 }
 
-resource "terratowns_home" "Dizzy" {
+resource "terratowns_home" "dizzy" {
   name = "Dizzy the Egg Fan Site"
-  domain_name = module.terrahouse_aws.cloudfront_url
+  domain_name = module.home_dizzy.cloudfront_url
   #domain_name = "34asda32.cloudfront.net"
   description = "This site is a fan site which talks about the game where the main character is Dizzy"# and he has friends that help him along the way"
   town = "missingo"
-  content_version = 1
+  content_version = var.dizzy.content_version
+}
+
+module "home_recipes" {
+    source = "./modules/terrahome_aws"
+    user_uuid = var.teacherseat_user_uuid
+    bucket_name = "${var.recipes.project_folder}-three-kings"
+    project_folder = var.recipes.project_folder
+    content_version = var.recipes.content_version
+    website_root_filepath = var.website_root_filepath
+}
+
+resource "terratowns_home" "recipes" {
+  name = "Sticky Toffee Pudding Recipe"
+  domain_name = module.home_recipes.cloudfront_url
+  #domain_name = "34asda32.cloudfront.net"
+  description = "I love Sticky toffee pudding and here is a recipe for making one"
+  town = "missingo"
+  content_version = var.recipes.content_version
 }

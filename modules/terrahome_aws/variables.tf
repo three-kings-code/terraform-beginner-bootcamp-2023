@@ -18,26 +18,6 @@ variable "bucket_name" {
   }
 }
 
-# variable "index_html_filepath" {
-#   type        = string
-#   description = "Filepath to the index.html file"
-
-#   validation {
-#     condition     = fileexists(var.index_html_filepath)
-#     error_message = "The specified index_html_filepath does not exist."
-#   }
-# }
-
-# variable "error_html_filepath" {
-#   type        = string
-#   description = "Filepath to the error.html file"
-
-#   validation {
-#     condition     = fileexists(var.error_html_filepath)
-#     error_message = "The specified error_html_filepath does not exist."
-#   }
-# }
-
 variable "website_root_filepath" {
   type        = string
   description = "Filepath to the html files"
@@ -53,7 +33,7 @@ variable "content_version" {
   }
 }
 
-variable "assets_path" {
+variable "project_folder" {
   type = string
-  description = "Path to the 'assets' folder"
+  description = "Path to the 'project' folder"
 }

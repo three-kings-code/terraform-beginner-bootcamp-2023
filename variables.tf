@@ -3,34 +3,9 @@ variable "teacherseat_user_uuid" {
     type = string
 }
 
-variable "bucket_name" {
-  type        = string
-  description = "The name of the AWS S3 bucket."
-}
-
-variable "index_html_filepath" {
-  type        = string
-  description = "Filepath to the index.html file"
-}
-
 variable "website_root_filepath" {
   type        = string
   description = "Filepath to the html files"
-}
-
-variable "error_html_filepath" {
-  type        = string
-  description = "Filepath to the error.html file"
-}
-
-variable "content_version" {
-  type        = number
-  description = "Content version (positive integer starting at 1)"
-}
-
-variable "assets_path" {
-  type = string
-  description = "Path to the 'assets' folder"
 }
 
 variable "terratowns_endpoint" {
@@ -41,4 +16,20 @@ variable "terratowns_endpoint" {
 variable "terratowns_access_token" {
   type = string
   description = "This is the api access token for terratowns to deploy our page"
+}
+
+variable "dizzy" {
+  description = "This variable holds all the details of the project"
+  type = object({
+    project_folder = string
+    content_version = number
+  })
+}
+
+variable "recipes" {
+  description = "This variable holds all the details of the project"
+  type = object({
+    project_folder = string
+    content_version = number
+  })
 }
