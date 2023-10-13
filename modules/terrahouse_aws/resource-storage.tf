@@ -20,28 +20,27 @@ resource "aws_s3_bucket_website_configuration" "website_config" {
   }
 }
 
-# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object
-# resource "aws_s3_object" "website_index" {
-#   bucket = aws_s3_bucket.website_bucket.bucket
-#   key    = "index.html"
-#   source = var.index_html_filepath
-#   content_type = "text/html"
-#   etag = filemd5(var.index_html_filepath)
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object
+resource "aws_s3_object" "website_css" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "styles.css"
+  source = "${var.website_root_filepath}styles.css"
+  content_type = "text/css"
+  etag = filemd5("${var.website_root_filepath}styles.css")
   
-#   lifecycle {
-#     replace_triggered_by = [terraform_data.content_version]
-#     ignore_changes = [etag]
-#   }
-# }
+  lifecycle {
+    replace_triggered_by = [terraform_data.content_version]
+    ignore_changes = [etag]
+  }
+}
 
-#var.html_path = "/workspace/terraform-beginner-bootcamp-2023/public/"
 resource "aws_s3_object" "website_htmls" {
-  for_each = fileset(var.htmls_filepath, "*.{html,css}")
+  for_each = fileset(var.website_root_filepath, "*.{html}")
   bucket   = aws_s3_bucket.website_bucket.bucket
   key      = each.key
-  source   = "${var.htmls_filepath}${each.key}"
+  source   = "${var.website_root_filepath}${each.key}"
   content_type = "text/html"
-  etag = filemd5("${var.htmls_filepath}${each.key}")
+  etag = filemd5("${var.website_root_filepath}${each.key}")
 
   lifecycle {
     replace_triggered_by = [terraform_data.content_version]

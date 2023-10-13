@@ -13,7 +13,7 @@ variable "index_html_filepath" {
   description = "Filepath to the index.html file"
 }
 
-variable "htmls_filepath" {
+variable "website_root_filepath" {
   type        = string
   description = "Filepath to the html files"
 }
