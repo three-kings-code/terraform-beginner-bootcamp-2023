@@ -24,9 +24,9 @@ resource "aws_s3_bucket_website_configuration" "website_config" {
 resource "aws_s3_object" "website_css" {
   bucket = aws_s3_bucket.website_bucket.bucket
   key    = "styles.css"
-  source = "${var.website_root_filepath}styles.css"
+  source = "${var.website_root_filepath}${var.project_folder}/styles.css"
   content_type = "text/css"
-  etag = filemd5("${var.website_root_filepath}styles.css")
+  etag = filemd5("${var.website_root_filepath}${var.project_folder}/styles.css")
   
   lifecycle {
     replace_triggered_by = [terraform_data.content_version]
@@ -35,12 +35,12 @@ resource "aws_s3_object" "website_css" {
 }
 
 resource "aws_s3_object" "website_htmls" {
-  for_each = fileset(var.website_root_filepath, "*.{html}")
+  for_each = fileset("${var.website_root_filepath}${var.project_folder}/", "*.{html}")
   bucket   = aws_s3_bucket.website_bucket.bucket
   key      = each.key
-  source   = "${var.website_root_filepath}${each.key}"
+  source   = "${var.website_root_filepath}${var.project_folder}/${each.key}"
   content_type = "text/html"
-  etag = filemd5("${var.website_root_filepath}${each.key}")
+  etag = filemd5("${var.website_root_filepath}${var.project_folder}/${each.key}")
 
   lifecycle {
     replace_triggered_by = [terraform_data.content_version]
@@ -49,12 +49,12 @@ resource "aws_s3_object" "website_htmls" {
 }
 
 resource "aws_s3_object" "upload_assets" {
-  for_each = fileset(var.assets_path, "*.{jpg,png,gif}")
+  for_each = fileset("${var.website_root_filepath}${var.project_folder}/assets/", "*.{jpg,png,gif}")
   bucket = aws_s3_bucket.website_bucket.bucket
   key    = "assets/${each.key}"
-  source = "${var.assets_path}${each.key}"
+  source = "${var.website_root_filepath}${var.project_folder}/assets/${each.key}"
   #content_type = "text/html"
-  etag = filemd5("${var.assets_path}${each.key}")
+  etag = filemd5("${var.website_root_filepath}${var.project_folder}/assets/${each.key}")
 }
 
 # resource "aws_s3_object" "website_error" {

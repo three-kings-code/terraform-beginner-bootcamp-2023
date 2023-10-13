@@ -1,7 +1,11 @@
 terratowns_endpoint = "https://terratowns.cloud/api"
-bucket_name = "three-kings-website-bucket"
-index_html_filepath = "/workspace/terraform-beginner-bootcamp-2023/public/index.html"
-error_html_filepath = "/workspace/terraform-beginner-bootcamp-2023/public/error.html"
 website_root_filepath = "/workspace/terraform-beginner-bootcamp-2023/public/"
-assets_path = "/workspace/terraform-beginner-bootcamp-2023/public/assets/"
-content_version = 1
+dizzy = {
+    project_folder = "dizzy"
+    content_version = 1
+}
+
+recipes = {
+    project_folder = "recipes"
+    content_version = 1
+}

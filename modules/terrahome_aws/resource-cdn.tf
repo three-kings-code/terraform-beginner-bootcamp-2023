@@ -2,7 +2,7 @@
 # https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-origin-access-control-oac/
 
 locals {
-  s3_origin_id = "MyS3Origin"
+  s3_origin_id = "MyS3Origin-${var.bucket_name}"
 }
 
 resource "aws_cloudfront_origin_access_control" "OAC_S3_Bucket" {
